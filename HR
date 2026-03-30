@@ -1,0 +1,62 @@
+; 初始坐标（可根据需要修改默认值）
+controlX := 880
+controlY := 265
+
+; 左Alt热键 - 执行点击操作
+*LAlt::
+{
+    targetTitle := "火绒安全软件"
+    
+    WinGet, targetHwnd, ID, %targetTitle%
+    
+    if !targetHwnd
+    {
+        MsgBox, 64,  Error, 未找到火绒安全软件的窗口！
+        return
+    }
+
+    ; 使用之前设置的坐标点击
+    ControlClick, x%controlX% y%controlY%, ahk_id %targetHwnd%, , LEFT, 1, NA
+    
+    ; 可选：添加成功提示音
+    SoundBeep, 1000, 150
+    
+    ;Sleep 50
+    return
+}
+
+; F1热键 - 设置坐标
+F1::
+{
+    targetTitle := "火绒安全软件"
+    
+    WinGet, targetHwnd, ID, %targetTitle%
+    
+    if !targetHwnd
+    {
+        MsgBox, 64, Error, 未找到火绒安全软件的窗口！`n请先打开火绒窗口再按F1设置坐标。
+        return
+    }
+    
+    ; 获取鼠标当前位置（屏幕坐标）
+    MouseGetPos, screenX, screenY
+    
+    ; 将屏幕坐标转换为相对于火绒窗口客户区的坐标
+    ;WinGetPos, winX, winY, winW, winH, ahk_id %targetHwnd%
+    
+    ; 计算相对坐标
+    controlX := screenX
+    controlY := screenY
+    
+    ; 显示设置成功的坐标
+    MsgBox, 64, 坐标设置成功, 已设置点击坐标为：`nX = %screenX%`nY = %screenY%`n`n注意：如果要再设置请后台关闭再打开本程序
+    
+    Hotkey, F1, Off
+
+    ; 可选：添加设置成功提示音
+    ;SoundBeep, 800, 200
+    ;Sleep, 100
+    ;SoundBeep, 1200, 200
+    
+    return
+}
