@@ -1,0 +1,16 @@
+
+*LAlt::
+{
+
+	ControlGetText, CapturedText, Button2, clumsy 0.3
+
+	if (CapturedText = "Start"){ 
+		ControlClick, Button2, clumsy 0.3
+		SoundBeep, 1000, 150  ; 频率1000Hz，时长500ms
+	} else if (CapturedText = "Stop"){
+		ControlClick, Button2, clumsy 0.3
+		SoundBeep, 500, 150   ; 频率500Hz，时长300ms
+	}
+	return
+}
+
